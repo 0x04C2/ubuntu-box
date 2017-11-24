@@ -3,8 +3,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # based on offical ubuntu server 14.04 LTS (trusty tahr) builds
-  config.vm.box = "ubuntu/trusty64"
+  # based on offical ubuntu server 16.04 LTS (Xenial Xerus) builds
+  config.vm.box = "ubuntu/xenial64"
 
   # provided by virtualbox
   #
