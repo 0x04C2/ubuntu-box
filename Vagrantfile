@@ -16,4 +16,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.cpus   = 4
     vb.memory = 4096
   end
+
+  # setup package source
+  config.vm.provision "shell", :path => "build/pkg_mgmt.sh"
+
+  # install tools
+  config.vm.provision "shell", :path => "build/install_tools.sh"
 end
