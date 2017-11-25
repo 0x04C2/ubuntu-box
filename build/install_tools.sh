@@ -32,12 +32,24 @@ install_base() {
     lsof
 }
 
-# install_golang_v1_9 installs golang v1.9 binary.
+# install_golang install
 #
-# Note that golang-1.9-go puts binaries in /usr/lib/go-1.9/bin, but no in the
-# PATH.
-install_golang_v1_9() {
-  sudo apt-get install golang-1.9-go -y
+# NOTE: go source code and binary are at /usr/local/go. Need to setup the path.
+install_golang() {
+  local go_src target version latest_version
+
+  # purge old src
+  go_src="/usr/local/go"
+  if [[ -d "${go_src}" ]]; then
+    sudo rm -rf "${go_src}"
+    sudo rm -rf "${GOPATH}"
+  fi
+
+  latest_version="$(curl -sSL "https://golang.org/VERSION?m=text")"
+  set +u; version="${GO_VESION:-${latest_version}}"; set -u
+  target="https://redirector.gvt1.com/edgedl/go/${version}.linux-amd64.tar.gz"
+
+  curl -sSL "${target}" | sudo tar -v -C /usr/local -xz
 }
 
 # install_docker_ce installs docker-ce
@@ -47,7 +59,7 @@ install_docker_ce() {
 
 main() {
   install_base
-  install_golang_v1_9
+  install_golang
   install_docker_ce
 }
 

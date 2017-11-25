@@ -57,9 +57,6 @@ EOF
   # NOTE: only support versions >= 16.04!!!
   sudo add-apt-repository ppa:neovim-ppa/stable -y
 
-  # add golang repo source
-  sudo add-apt-repository ppa:gophers/archive -y
-
   sudo apt-get update -y
 }
 
