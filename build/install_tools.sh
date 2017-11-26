@@ -42,7 +42,6 @@ install_golang() {
   go_src="/usr/local/go"
   if [[ -d "${go_src}" ]]; then
     sudo rm -rf "${go_src}"
-    sudo rm -rf "${GOPATH}"
   fi
 
   latest_version="$(curl -sSL "https://golang.org/VERSION?m=text")"
