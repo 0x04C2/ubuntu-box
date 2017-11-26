@@ -54,6 +54,12 @@ install_golang() {
 
 # install_docker_ce installs docker-ce
 install_docker_ce() {
+  # fix the damn "Permission denied" issue
+  #
+  # NOTE: need to log-out and log-in to make new group member into effect.
+  sudo groupadd docker
+  sudo gpasswd -a "${USER}" docker
+
   sudo apt-get install docker-ce -y
 }
 
