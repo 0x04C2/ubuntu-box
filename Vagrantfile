@@ -21,5 +21,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", :path => "build/pkg_mgmt.sh"
 
   # install tools
-  config.vm.provision "shell", :path => "build/install_tools.sh"
+  #
+  # NOTE: privileged(false) means run scripts as vagrant, not root.
+  config.vm.provision "shell",
+    :path       => "build/install_tools.sh",
+    :privileged => false
 end
