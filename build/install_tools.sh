@@ -18,6 +18,7 @@ install_base() {
     zip \
     tree \
     tar \
+    silversearcher-ag \
     \
     zsh \
     vim \
