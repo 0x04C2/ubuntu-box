@@ -19,6 +19,7 @@ install_base() {
     tree \
     tar \
     silversearcher-ag \
+    jq \
     \
     zsh \
     vim \
@@ -78,11 +79,24 @@ install_dotfiles() {
   sudo chsh "${USER}" -s "$(which zsh)"
 }
 
+# install_fzf installs fzf binary.
+install_fzf() {
+  local target arch
+
+  arch="linux_amd64"
+
+  target="$(curl -sSL https://api.github.com/repos/junegunn/fzf-bin/releases/latest \
+    | jq -r ".assets[] | select(.name | test(\"${arch}\")) | .browser_download_url")"
+
+  curl -sSL "${target}" | sudo tar -v -C /usr/local/bin -xz
+}
+
 main() {
   install_base
   install_golang
   install_docker_ce
   install_dotfiles
+  install_fzf
 }
 
 main
