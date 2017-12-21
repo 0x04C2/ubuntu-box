@@ -24,6 +24,7 @@ install_base() {
     zsh \
     vim \
     neovim \
+    python3-pip \
     tmux \
     \
     git \
@@ -32,6 +33,8 @@ install_base() {
     make \
     \
     lsof
+
+  sudo pip3 install --upgrade neovim
 }
 
 # install_golang install

@@ -20,10 +20,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # setup package source
   config.vm.provision "shell", :path => "build/pkg_mgmt.sh"
 
+  # change timezone into localtime
+  config.vm.provision "shell", :path => "build/timezone.sh"
+
   # install tools
-  #
-  # NOTE: privileged(false) means run scripts as vagrant, not root.
-  config.vm.provision "shell",
-    :path       => "build/install_tools.sh",
-    :privileged => false
+  config.vm.provision "shell", :path => "build/install_tools.sh"
 end
