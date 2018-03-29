@@ -66,12 +66,14 @@ install_docker_ce() {
   sudo gpasswd -a "${USER}" docker
 }
 
-# install_dotfiles installs from github.com/0x04C2/dotfiles.
+# install_dotfiles installs from github.com/fuweid/dotfiles.
 #
-# FIXME(0x04C2): if we don't use yes command to do confirm, the scripts will
+# FIXME(fuweid): if we don't use yes command to do confirm, the scripts will
 # raise error "bash: line 3: xit: command not found".
 install_dotfiles() {
-  git clone https://github.com/0x04C2/dotfiles ~/.dotfiles --depth 1
+  rm -rf ~/.dotfiles
+
+  git clone https://github.com/fuweid/dotfiles ~/.dotfiles --depth 1
   cd ~/.dotfiles
 
   set +o pipefail
