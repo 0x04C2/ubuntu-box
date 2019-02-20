@@ -56,16 +56,6 @@ install_golang() {
   curl -sSL "${target}" | sudo tar -v -C /usr/local -xz
 }
 
-# install_docker_ce installs docker-ce
-install_docker_ce() {
-  sudo apt-get install docker-ce -y
-
-  # fix the damn "Permission denied" issue
-  #
-  # NOTE: need to log-out and log-in to make new group member into effect.
-  sudo gpasswd -a "${USER}" docker
-}
-
 # install_dotfiles installs from github.com/fuweid/dotfiles.
 #
 # FIXME(fuweid): if we don't use yes command to do confirm, the scripts will
@@ -99,7 +89,6 @@ install_fzf() {
 main() {
   install_base
   install_golang
-  install_docker_ce
   install_dotfiles
   install_fzf
 }
