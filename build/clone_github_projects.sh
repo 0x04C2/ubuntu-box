@@ -4,12 +4,11 @@
 
 set -euo pipefail
 
-export GOPATH="${GOPATH:-${HOME}/go}"
-
 # fetch_go_projects clones golang projects.
 fetch_go_projects() {
-  local projects upstream owner locate pkg_dir common_cmd
+  local projects upstream owner locate gopath pkg_dir common_cmd
 
+  gopath="$(go env GOPATH)"
   # upstream:owner[@locate]
   # upstream -> like github.com/containerd/containerd
   # owner    -> fuweid/containerd which is part of git ssh URL
@@ -33,9 +32,9 @@ fetch_go_projects() {
     fi
 
     # for moby
-    pkg_dir="${GOPATH}/src/${upstream}"
+    pkg_dir="${gopath}/src/${upstream}"
     if [[ ! -z "${locate}" ]]; then
-      pkg_dir="${GOPATH}/src/${locate}"
+      pkg_dir="${gopath}/src/${locate}"
     fi
 
     # NOTE(fuweid): remove the existing dir, which only show up testing
