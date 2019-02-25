@@ -8,6 +8,9 @@ cpu_number = ENV["VM_CPU_NUMBER"] || 4
 # by default, the memory of vm is 4GB.
 memory_limit = ENV["VM_MEMORY_LIMIT"] || 4096
 
+# by default, the storage of vm is 64GB.
+disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # based on Official Ubuntu 18.04 LTS (Bionic Beaver) Daily Build
   config.vm.box = "ubuntu/bionic64"
@@ -21,6 +24,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.gui    = false
     vb.cpus   = cpu_number
     vb.memory = memory_limit
+  end
+
+  # vagrant plugin - vagrant-disksize
+  #   used to add more disk quota for the vm since the dafault value is small
+  #   ref: https://github.com/sprotheroe/vagrant-disksize
+  if Vagrant.has_plugin?("vagrant-disksize")
+    config.disksize.size = disk_quota
   end
 
   # setup package source
