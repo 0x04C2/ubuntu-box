@@ -41,4 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # install tools
   config.vm.provision "shell", :path => "build/install_tools.sh"
+
+  # clone github projects
+  config.vm.provision "shell", :path => "build/clone_github_projects.sh"
 end
