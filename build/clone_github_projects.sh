@@ -2,6 +2,9 @@
 #
 # clone github projects
 
+# golang related setting is in zshrc
+source ~/.zshrc
+
 set -euo pipefail
 
 # fetch_go_projects clones golang projects.
