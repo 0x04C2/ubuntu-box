@@ -12,8 +12,8 @@ memory_limit = ENV["VM_MEMORY_LIMIT"] || 4096
 disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # based on Official Ubuntu 18.04 LTS (Bionic Beaver) Daily Build
-  config.vm.box = "ubuntu/bionic64"
+  # based on offical ubuntu server 16.04 LTS (Xenial Xerus) builds
+  config.vm.box = "ubuntu/xenial64"
 
   # provided by virtualbox
   #
