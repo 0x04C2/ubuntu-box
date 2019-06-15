@@ -11,6 +11,10 @@ memory_limit = ENV["VM_MEMORY_LIMIT"] || 4096
 # by default, the storage of vm is 64GB.
 disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
 
+# by default, the https_proxy is empty. just in case, the provision script
+# need the https_proxy.
+https_proxy = ENV["VM_HTTPS_PROXY"] || ""
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # based on offical ubuntu server 16.04 LTS (Xenial Xerus) builds
   config.vm.box = "ubuntu/xenial64"
@@ -34,14 +38,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # setup package source
-  config.vm.provision "shell", :path => "build/pkg_mgmt.sh"
+  config.vm.provision "shell", 
+    :path => "build/pkg_mgmt.sh",
+    :env => { :https_proxy => https_proxy }
 
   # change timezone into localtime
   config.vm.provision "shell", :path => "build/timezone.sh"
 
   # install tools
-  config.vm.provision "shell", :path => "build/install_tools.sh"
+  config.vm.provision "shell",
+    :path => "build/install_tools.sh",
+    :env => { :https_proxy => https_proxy }
 
   # clone github projects
-  config.vm.provision "shell", :path => "build/clone_github_projects.sh"
+  config.vm.provision "shell",
+    :path => "build/clone_github_projects.sh",
+    :env => { :https_proxy => https_proxy }
 end
