@@ -21,6 +21,7 @@ fetch_go_projects() {
     "github.com/containerd/containerd:fuweid/containerd"
     "github.com/moby/moby:fuweid/moby@github.com/docker/docker"
     "github.com/moby/buildkit:fuweid/buildkit"
+    "github.com/containerd/cri:fuweid/cri"
   )
 
   # FIXME(fuweid): support no upstream type
