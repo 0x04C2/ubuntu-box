@@ -32,7 +32,9 @@ install_base() {
     cmake \
     make \
     \
-    lsof
+    lsof \
+    \
+    linux-tools-common
 
   sudo pip3 install --upgrade neovim
 }
