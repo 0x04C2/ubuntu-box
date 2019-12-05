@@ -16,8 +16,8 @@ disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
 https_proxy = ENV["VM_HTTPS_PROXY"] || ""
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # based on offical ubuntu server 19.10 (Eoan Ermine) builds
-  config.vm.box = "ubuntu/eoan64"
+  # based on offical ubuntu server 16.04 LTS (Xenial Xerus) builds
+  config.vm.box = "ubuntu/xenial64"
 
   # provided by virtualbox
   #
@@ -39,7 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # setup package source
   config.vm.provision "shell", 
-    :path => "build/eoan64_pkg_mgmt.sh",
+    :path => "build/pkg_mgmt.sh",
     :env => { :https_proxy => https_proxy }
 
   # change timezone into localtime
