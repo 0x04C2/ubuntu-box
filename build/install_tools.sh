@@ -11,7 +11,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # install_base installs base tools.
 install_base() {
-  sudo apt-get install -y \
+  sudo -E apt-get install -y \
     wget \
     curl \
     unzip \
@@ -53,9 +53,11 @@ install_golang() {
 
   latest_version="$(curl -sSL "https://golang.org/VERSION?m=text")"
   set +u; version="${GO_VESION:-${latest_version}}"; set -u
-  target="https://redirector.gvt1.com/edgedl/go/${version}.linux-amd64.tar.gz"
+  target="https://dl.google.com/go/${version}.linux-amd64.tar.gz"
 
   curl -sSL "${target}" | sudo tar -v -C /usr/local -xz
+
+  go env -w GOPROXY=https://goproxy.cn,direct
 }
 
 # install_dotfiles installs from github.com/fuweid/dotfiles.
@@ -88,11 +90,24 @@ install_fzf() {
   curl -sSL "${target}" | sudo tar -v -C /usr/local/bin -xz
 }
 
+# install_dockerce installs docker-ce
+install_dockerce() {
+  sudo -E apt-get install -y docker-ce docker-ce-cli containerd.io
+}
+
+# install_kubeadm installs kubeadm, kubelet and kubectl.
+install_kubeadm() {
+  sudo -E apt-get install -y kubelet kubeadm kubectl
+  sudo -E apt-mark hold kubelet kubeadm kubectl
+}
+
 main() {
   install_base
-  install_golang
   install_dotfiles
+  install_golang
   install_fzf
+  install_dockerce
+  install_kubeadm
 }
 
 main

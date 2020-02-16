@@ -16,8 +16,8 @@ disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
 https_proxy = ENV["VM_HTTPS_PROXY"] || ""
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # based on offical ubuntu server 16.04 LTS (Xenial Xerus) builds
-  config.vm.box = "ubuntu/xenial64"
+  # based on offical ubuntu server 18.04 (Bionic Beaver) builds
+  config.vm.box = "ubuntu/bionic64"
 
   # provided by virtualbox
   #
@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # setup package source
   config.vm.provision "shell", 
     :path => "build/pkg_mgmt.sh",
-    :env => { :https_proxy => https_proxy }
+    :env => { :https_proxy => https_proxy, :http_proxy => https_proxy }
 
   # change timezone into localtime
   config.vm.provision "shell", :path => "build/timezone.sh"
@@ -48,10 +48,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # install tools
   config.vm.provision "shell",
     :path => "build/install_tools.sh",
-    :env => { :https_proxy => https_proxy }
+    :env => { :https_proxy => https_proxy, :http_proxy => https_proxy }
 
   # clone github projects
   config.vm.provision "shell",
     :path => "build/clone_github_projects.sh",
-    :env => { :https_proxy => https_proxy }
+    :env => { :https_proxy => https_proxy, :http_proxy => https_proxy }
 end
