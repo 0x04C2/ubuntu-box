@@ -57,7 +57,7 @@ install_golang() {
 
   curl -sSL "${target}" | sudo tar -v -C /usr/local -xz
 
-  go env -w GOPROXY=https://goproxy.cn,direct
+  /usr/local/go/bin/go env -w GOPROXY=https://goproxy.cn,direct
 }
 
 # install_dotfiles installs from github.com/fuweid/dotfiles.
