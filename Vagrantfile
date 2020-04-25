@@ -16,8 +16,6 @@ disk_quota = ENV["VM_DISK_QUOTA"] || "64GB"
 https_proxy = ENV["VM_HTTPS_PROXY"] || ""
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # based on offical ubuntu server 18.04 (Bionic Beaver) builds
-  config.vm.box = "ubuntu/bionic64"
 
   # provided by virtualbox
   #
@@ -25,16 +23,44 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # - 4 cpu number or the value by env VM_CPU_NUMBER
   # - 4GB memory or the value by env VM_MEMORY_LIMIT
   config.vm.provider "virtualbox" do |vb|
+    # based on offical ubuntu server 18.04 (Bionic Beaver) builds
+    config.vm.box = "ubuntu/bionic64"
+
     vb.gui    = false
     vb.cpus   = cpu_number
     vb.memory = memory_limit
+
+    # vagrant plugin - vagrant-disksize
+    #   used to add more disk quota for the vm since the dafault value is small
+    #   ref: https://github.com/sprotheroe/vagrant-disksize
+    if Vagrant.has_plugin?("vagrant-disksize")
+      config.disksize.size = disk_quota
+    end
   end
 
-  # vagrant plugin - vagrant-disksize
-  #   used to add more disk quota for the vm since the dafault value is small
-  #   ref: https://github.com/sprotheroe/vagrant-disksize
-  if Vagrant.has_plugin?("vagrant-disksize")
-    config.disksize.size = disk_quota
+  # provided by vmware_fusion
+  #
+  # - headless bootup
+  # - 4 cpu number or the value by env VM_CPU_NUMBER
+  # - 4GB memory or the value by env VM_MEMORY_LIMIT
+  #
+  #
+  # NOTE: Need to setup vagrant-vmware_fusion plugin
+  #
+  # 1. vagrant plugin install vagrant-vmware-desktop
+  #
+  # 2. vagrant plugin license vagrant-vmware-desktop ~/license.lic
+  #
+  config.vm.provider "vmware_fusion" do |vmware_fusion|
+    # from hashicorp offical ubuntu server 18.04 (Bionic Beaver) builds
+    config.vm.box = "hashicorp/bionic64"
+
+    vmware_fusion.gui             = false
+    vmware_fusion.vmx["memsize"]  = memory_limit
+    vmware_fusion.vmx["numvcpus"] = cpu_number
+
+    # enable VT-X
+    vmware_fusion.vmx["vhv.enable"] = "TRUE"
   end
 
   # setup package source
