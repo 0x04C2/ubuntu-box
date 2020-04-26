@@ -51,6 +51,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   # 2. vagrant plugin license vagrant-vmware-desktop ~/license.lic
   #
+  # 3. vmware-tools is at /home/vagrant/linux.iso
+  #
+  #    mount -o loop /home/vagrant/linux.iso  /media/cdrom
+  #
+  #    and untar to get install script.
   config.vm.provider "vmware_fusion" do |vmware_fusion|
     # from hashicorp offical ubuntu server 18.04 (Bionic Beaver) builds
     config.vm.box = "hashicorp/bionic64"
@@ -61,6 +66,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # enable VT-X
     vmware_fusion.vmx["vhv.enable"] = "TRUE"
+    # vmware_fusion.vmx["vmci0.present"] = "TRUE"
   end
 
   # setup package source
