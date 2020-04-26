@@ -86,4 +86,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell",
     :path => "build/clone_github_projects.sh",
     :env => { :https_proxy => https_proxy, :http_proxy => https_proxy }
+
+  # swapoff -a for kubernetes
+  config.vm.provision "shell", 
+    :inline => "swapoff -a",
+    :run => "always"
 end
