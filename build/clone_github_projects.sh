@@ -17,9 +17,7 @@ fetch_go_projects() {
   # owner    -> fuweid/containerd which is part of git ssh URL
   # locate   -> github.com/docker/docker which is used to change the pkg locate
   projects=(
-    "github.com/alibaba/pouch:fuweid/pouch"
     "github.com/containerd/containerd:fuweid/containerd"
-    "github.com/moby/moby:fuweid/moby@github.com/docker/docker"
     "github.com/moby/buildkit:fuweid/buildkit"
     "github.com/containerd/cri:fuweid/cri"
   )
