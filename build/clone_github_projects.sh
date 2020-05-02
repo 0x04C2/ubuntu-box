@@ -20,6 +20,7 @@ fetch_go_projects() {
     "github.com/containerd/containerd:fuweid/containerd"
     "github.com/moby/buildkit:fuweid/buildkit"
     "github.com/containerd/cri:fuweid/cri"
+    "github.com/kubernetes-sigs/cri-tools:fuweid/cri-tools"
   )
 
   # FIXME(fuweid): support no upstream type
@@ -40,6 +41,9 @@ fetch_go_projects() {
     fi
 
     # NOTE(fuweid): remove the existing dir, which only show up testing
+    if [[ -d ${pkg_dir}/.git ]]; then
+      continue
+    fi
     rm -rf "${pkg_dir}"
 
     # for me
