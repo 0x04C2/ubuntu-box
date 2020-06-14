@@ -34,7 +34,14 @@ install_base() {
     \
     lsof \
     \
-    linux-tools-common
+    linux-tools-common \
+    \
+    build-essential \
+    libelf-dev \
+    clang \
+    bpfcc-tools \
+    linux-headers-$(uname -r) \
+    gcc-multilib
 
   sudo pip3 install --upgrade neovim
 }
