@@ -21,7 +21,7 @@ fetch_go_projects() {
     "github.com/moby/buildkit:fuweid/buildkit"
     "github.com/containerd/cri:fuweid/cri"
     "github.com/kubernetes-sigs/cri-tools:fuweid/cri-tools"
-    "sigs.k8s.io/controller-runtime:fuweid/controller-runtime"
+    "github.com/kubernetes-sigs/controller-runtime:fuweid/controller-runtime@sigs.k8s.io/controller-runtime"
   )
 
   # FIXME(fuweid): support no upstream type
